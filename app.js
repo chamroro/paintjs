@@ -10,8 +10,6 @@ const INITIAL_COLOR = "black";
 canvas.width = 600;
 canvas.height = 600;
 
-
-
 ctx.fillStyle = "white";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -55,7 +53,7 @@ function handleColorClick(event) {
 
 
 function handleRangeClick(event) {
-  const size = (event.target.value);
+  const size = event.target.value;
   ctx.lineWidth = size;
 }
 
@@ -80,7 +78,7 @@ function handleCM(event) {
 }
 
 function handleSaveClick(){
-  const image = canvas.toDataURL("image/png");
+  const image = canvas.toDataURL();
   const link = document.createElement("a");
   link.href= image;
   link.download = "PaintJS[🎨]";
@@ -119,4 +117,3 @@ if (saveBtn) {
   saveBtn.addEventListener("click", handleSaveClick);
 }
 
- // Attach listener function on state changess
