@@ -10,6 +10,8 @@ const INITIAL_COLOR = "black";
 canvas.width = 600;
 canvas.height = 600;
 
+
+
 ctx.fillStyle = "white";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -43,24 +45,7 @@ function onMouseMove(event) {
 function onMouseDown() {
   painting = true;
 }
-// 
-function handleStart(event) {
-  console.log(event);
-  if (!painting) {
-    ctx.beginPath();
-  }
-  event.preventDefault();
-}
-function handleMove(event) {
-  var touches = event.changedTouches;
-  ctx.lineTo(touches[0].screenX, touches[0].screenY);
-  ctx.stroke();
-  event.preventDefault();
-}
 
-function handleEnd() {
-  ctx.closePath();
-}
 
 function handleColorClick(event) {
   const color = event.target.style.backgroundColor;
@@ -115,9 +100,11 @@ if (canvas) {
   canvas.addEventListener("mouseleave", stopPainting);
   canvas.addEventListener("click", handleCanvasClick);
   canvas.addEventListener("context", handleCM);
-  canvas.addEventListener("touchstart", handleStart);
-  canvas.addEventListener("touchmove", handleMove);
-  canvas.addEventListener("touchend", handleEnd);     
+  canvas.addEventListener("touchmove", onMouseMove);
+  canvas.addEventListener("touchstart", startPainting);
+  canvas.addEventListener("touchend", stopPainting);
+  canvas.addEventListener("touchleave", stopPainting);
+  canvas.addEventListener("touchcancel", stopPainting);
 }
 
 if (range) {
@@ -131,3 +118,5 @@ if (mode) {
 if (saveBtn) {
   saveBtn.addEventListener("click", handleSaveClick);
 }
+
+ // Attach listener function on state changess
